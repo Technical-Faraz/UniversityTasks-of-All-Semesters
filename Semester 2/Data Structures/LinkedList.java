@@ -140,7 +140,6 @@ public class LinkedList {
         return -1;
     }
 
-
     public void insert(int val){       //enter it by ascending
         NodeI newNodeI = new NodeI();
         newNodeI.data = val;
@@ -151,6 +150,26 @@ public class LinkedList {
             current = current.next;
         }
         current.next =new NodeI(val, current.next);
+    }
+
+    public void deleteLast(){
+        NodeI current;
+        for(current =head; current.next.next != null; current = current.next){
+        }
+        current.next = null;
+        length--;
+    }
+    public LinkedList sublist(int p, int q){  //p and q are indices means start from 0
+        NodeI current;
+        int count =0;
+        LinkedList newList = new LinkedList(this.name+"sublist");
+        for(current =head; current.next != null; current = current.next){
+            if(p <=count && q>=count){
+                newList.add(current.data);
+            }
+            count++;
+        }
+        return newList;
     }
 
 }
@@ -199,5 +218,12 @@ class Main1{
         dest.insert(12);
         System.out.println("After Insertion");
         dest.disp();
+//`````````````````````````````````````````````Insertion of element in a LinkedList`````````````````````````````````````````````````
+        src.disp();
+        src.deleteLast();
+        src.disp();
+        LinkedList src2 = src.sublist(2,5);
+        src2.disp();
+
     }
 }
