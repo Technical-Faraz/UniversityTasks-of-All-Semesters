@@ -1,3 +1,7 @@
+// Roll # 19sw 05
+// Name Faraz Ahmed
+//  Reverse method is implemented in both type of queues
+
 import java.util.Arrays;
 class NodeQ{
     Object data;
@@ -55,6 +59,13 @@ class ArrayQueue implements Queue {
     public int size() {
         return size;
     }
+    public void reverse(){
+        Object obj[] = new Object[size];
+        for(int i = 0; i < size; i++){
+            obj[i] = this.data[(size-1) - i];
+        }
+        this.data = obj;
+    }
 }
 class LinkedQueue implements Queue {
 
@@ -92,4 +103,41 @@ class LinkedQueue implements Queue {
         public int size() {
             return 0;
         }
+
+        public void reverse(){
+            NodeQ current = head;
+            NodeQ temp;
+            do{
+                temp = current.next;
+                current.next = current.prev;
+                current.prev = temp;
+                current = current.prev;
+            }while (current != head);
+        }
+}
+
+class TestQueue {
+    public static void main(String[] args) {
+        LinkedQueue q = new LinkedQueue();
+        q.add("faraz");
+        q.add("Haris");
+        q.add("noor");
+        q.add("ritik");
+        q.reverse();
+        System.out.println(q.remove());
+        System.out.println(q.remove());
+        System.out.println(q.remove());
+        System.out.println(q.remove());
+        ArrayQueue q1 = new ArrayQueue(2);
+        q1.add("faraz");
+        q1.add("Haris");
+        q1.add("noor");
+        q1.add("ritk");
+        q1.reverse();
+        System.out.println(q1.remove());
+        System.out.println(q1.remove());
+        System.out.println(q1.remove());
+        System.out.println(q1.remove());
+
+    }
 }
