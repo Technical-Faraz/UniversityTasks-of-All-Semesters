@@ -66,6 +66,14 @@ class ArrayQueue implements Queue {
         }
         this.data = obj;
     }
+    public String toString(){
+        String s ="[ ";
+        for(int i = 0; i < size; i++){
+            s += data[i] + ", ";
+        }
+        s += "]";
+        return s;
+    }
 }
 class LinkedQueue implements Queue {
 
@@ -114,6 +122,27 @@ class LinkedQueue implements Queue {
                 current = current.prev;
             }while (current != head);
         }
+    public String toString(){
+            String s = "[ ";
+            for(NodeQ curr = head.next; curr != head; curr = curr.next){
+                s += curr.data + ", ";
+            }
+            s += " ]";
+            return s;
+    }
+    public boolean equals(LinkedQueue l2){
+            boolean isEqual = true;
+            if(this.size() == l2.size()){
+                for(NodeQ curr = head.next, curr2 = l2.head.next; curr != head; curr = curr.next, curr2 = curr2.next){
+                    if(!(curr.data.equals(curr2.data))){
+                        isEqual = false;
+                        break;
+                    }
+                }
+                return isEqual;
+            }
+            else return false;
+    }
 }
 
 class TestQueue {
