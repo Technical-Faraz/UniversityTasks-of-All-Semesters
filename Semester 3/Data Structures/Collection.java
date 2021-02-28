@@ -3,7 +3,6 @@ interface Iterator{
     boolean hasNext();
     Object next();
     boolean remove();
-
 }
 public interface Collection{
     boolean add(Object object);
@@ -63,6 +62,16 @@ abstract class AbstractCollection implements Collection{
         for(Iterator it=iterator(); it.hasNext();){
             it.next();
             it.remove();}
+    }
+    public int frequency(Object obj){
+        Iterator it = iterator();
+        int count = 0;
+        while(it.hasNext()){
+            if(it.next().equals(obj)){
+                count++;
+            }
+        }
+        return count;
     }
 }
 
@@ -167,14 +176,15 @@ class LinkedCollection extends AbstractCollection{
 
 class TestCollection{
     public static void main(String[] args) {
-        Collection c = new LinkedCollection();
+        AbstractCollection c = new ArrayCollection();
         c.add("faraz");
         c.add("ritik");
         c.add("Haris");
         c.add("Noor");
+        c.add("ritik");
         c.add("saad");
         c.remove("Haris");
-        System.out.println(c);
+        System.out.println("frequency is : " +c.frequency("ritik"));
         Iterator i = c.iterator();
         System.out.println(i.next());
         System.out.println(i.remove());
