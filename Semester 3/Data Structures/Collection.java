@@ -7,7 +7,7 @@ interface Iterator{
 public interface Collection{
     boolean add(Object object);
     void clear();
-//    boolean contains(Object object);
+    boolean contains(Object object);
     boolean isEmpty();
     Iterator iterator();
     boolean remove(Object object);
@@ -72,6 +72,19 @@ abstract class AbstractCollection implements Collection{
             }
         }
         return count;
+    }
+
+    @Override
+    public boolean contains(Object object) {
+        boolean isContain = false;
+        Iterator it = iterator();
+        while(it.hasNext()){
+            if(it.next().equals(object)){
+                isContain = true;
+                break;
+            }
+        }
+        return isContain;
     }
 }
 
@@ -185,6 +198,8 @@ class TestCollection{
         c.add("saad");
         c.remove("Haris");
         System.out.println("frequency is : " +c.frequency("ritik"));
+        System.out.println("Collection contains faraz ? ans : " + c.contains("faraz"));
+        System.out.println("Collection contains ahsan ? ans : " + c.contains("ahsan"));
         Iterator i = c.iterator();
         System.out.println(i.next());
         System.out.println(i.remove());
