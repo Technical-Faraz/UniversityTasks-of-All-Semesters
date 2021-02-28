@@ -38,22 +38,16 @@ class LinkedStack implements Stacks{
     private int size;
     private Node top;
     LinkedStack(){
-           size = 0;
+        size = 0;
+        top = null;
     }
     @Override
     public boolean isEmpty(){
-        if(this.top == null){
-            return true;
-        }else return false;
+        return(this.top == null);
     }
     public void push(Object obj) {
-        if(top == null) {
-            Node newNode = new Node(obj, null);
-            top = newNode;
-        }else{
-            Node newNode = new Node(obj, top);
-            top = newNode;
-        }
+        Node newNode = new Node(obj, top);
+        top = newNode;
         size++;
     }
 
