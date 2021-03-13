@@ -1,5 +1,5 @@
 public class RPN {
-        Stacks stack = new ArrayStack();
+        Stack stack = new ArrayStack();
     public RPN(String[] args){
         for(int i = 0; i < args.length; i++){
             String input = args[i];
@@ -34,6 +34,9 @@ class MainRPN {
     public static void main(String[] args) {
         String s = "2 3 + 5 6 2 / - *";
         String[] d = s.split(" ");
+        for(int i = 0; i < d.length;i ++){
+            System.out.println(d[i]);
+        }
         new RPN(d);
     }
 }
