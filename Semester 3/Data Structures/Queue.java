@@ -25,7 +25,11 @@ public interface Queue{
 class ArrayQueue implements Queue {
     private Object[] data;
     private int size;
-
+    private final int DEFAULT_SIZE = 10;
+    public ArrayQueue(){
+        data = new Object[DEFAULT_SIZE];
+        size = 0;
+    }
     public ArrayQueue(int capacity) {
         data = new Object[capacity];
         size = 0;
@@ -74,6 +78,46 @@ class ArrayQueue implements Queue {
         s += "]";
         return s;
     }
+    public boolean equals(ArrayQueue l2){
+        boolean isEqual = true;
+        if(this.size() == l2.size()){
+            for(int i = 0; i < size; i++){
+                if(!(data[i].equals(l2.data[i]))){
+                    isEqual = false;
+                    break;
+                }
+            }
+            return isEqual;
+        }
+        else return false;
+    }
+    public ArrayQueue clone(){
+        ArrayQueue duplicated = new ArrayQueue();
+        if(size != 0){
+            for(int i = 0; i < size; i++){
+                duplicated.add(data[i]);
+            }
+        }
+        return duplicated;
+    }
+    public LinkedQueue toLinkedQueue(){
+        LinkedQueue duplicated = new LinkedQueue();
+        if(size != 0){
+            for(int i = 0; i < size; i++){
+                duplicated.add(data[i]);
+            }
+        }
+        return duplicated;
+    }
+    public ArrayStack toStack(){    // first element becomes bottom element and vice versa
+        ArrayStack duplicated = new ArrayStack();
+        if(size != 0){
+            for(int i = 0; i < size; i++){
+                duplicated.push(data[i]);
+            }
+        }
+        return duplicated;
+    }
 }
 class LinkedQueue implements Queue {
 
@@ -82,9 +126,9 @@ class LinkedQueue implements Queue {
 
         @Override
         public void add(Object obj) {
-                head.prev.next = new NodeQ(obj, head.prev, head);
-                head.prev = head.prev.next;
-                ++size;
+            head.prev.next = new NodeQ(obj, head.prev, head);
+            head.prev = head.prev.next;
+            ++size;
         }
 
         @Override
@@ -97,7 +141,6 @@ class LinkedQueue implements Queue {
 
         @Override
         public Object remove() {
-
             if (size == 0) {
                 throw new java.util.EmptyStackException();
              }
@@ -109,7 +152,7 @@ class LinkedQueue implements Queue {
         }
         @Override
         public int size() {
-            return 0;
+            return size;
         }
 
         public void reverse(){
@@ -122,6 +165,11 @@ class LinkedQueue implements Queue {
                 current = current.prev;
             }while (current != head);
         }
+//        public void pakInsert(Object obj, int index){
+//            int count = 0;
+//            NodeQ curr = head.next;
+//            while()
+//        }
     public String toString(){
             String s = "[ ";
             for(NodeQ curr = head.next; curr != head; curr = curr.next){
@@ -143,30 +191,60 @@ class LinkedQueue implements Queue {
             }
             else return false;
     }
+    public LinkedQueue clone(){
+            LinkedQueue duplicated = new LinkedQueue();
+            for(NodeQ curr = head.next; curr != head; curr = curr.next){
+                duplicated.add(curr.data);
+            }
+            return duplicated;
+    }
+    public ArrayQueue toArrayQueue(){
+        ArrayQueue duplicated = new ArrayQueue();
+        for(NodeQ curr = head.next; curr != head; curr = curr.next){
+            duplicated.add(curr.data);
+        }
+        return duplicated;
+    }
+    public LinkedStack toStack(){  // first element becomes bottom element and vice versa
+        LinkedStack duplicated = new LinkedStack();
+        for(NodeQ curr = head.next; curr != head; curr = curr.next){
+            duplicated.push(curr.data);
+        }
+        return duplicated;
+    }
+    public Object[] toArray(){
+            Object[] array = new Object[size];
+            int index = 0;
+        for(NodeQ curr = head.next; curr != head; curr = curr.next){
+            array[index++] = curr.data;
+        }
+        return array;
+    }
 }
 
 class TestQueue {
     public static void main(String[] args) {
-        LinkedQueue q = new LinkedQueue();
-        q.add("faraz");
-        q.add("Haris");
-        q.add("noor");
-        q.add("ritik");
-        q.reverse();
-        System.out.println(q.remove());
-        System.out.println(q.remove());
-        System.out.println(q.remove());
-        System.out.println(q.remove());
-        ArrayQueue q1 = new ArrayQueue(2);
-        q1.add("faraz");
-        q1.add("Haris");
-        q1.add("noor");
-        q1.add("ritk");
-        q1.reverse();
-        System.out.println(q1.remove());
-        System.out.println(q1.remove());
-        System.out.println(q1.remove());
-        System.out.println(q1.remove());
+        LinkedQueue aq = new LinkedQueue();
+        aq.add("faraz");
+        aq.add("Haris");
+        aq.add("noor");
+        aq.add("ritik");
+        System.out.println(aq);
+        Object[] names;
+        names = aq.toArray();
+        System.out.println(names[1]);
+        LinkedQueue a = new LinkedQueue();
+        System.out.println(a);
+        a = aq.clone();
+        System.out.println(a);
+        System.out.println();
+
+        Stack s;
+        s = aq.toStack();
+        System.out.println(s.pop());
+        System.out.println(s.pop());
+        s = a.toStack();
+        System.out.println(s);
 
     }
 }
